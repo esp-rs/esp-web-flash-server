@@ -1,0 +1,11 @@
+[package]
+name = "web-flash"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rocket = "0.5.0-rc.2"
+espflash = { version = "1.5.2-dev", git = "https://github.com/esp-rs/espflash", branch = "bugfix/chip-name-esptool" }
+clap = { version = "3.1.18", features=["env"] }
+opener = "0.5.0"
+anyhow = "1.0.57"
