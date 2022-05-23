@@ -86,7 +86,7 @@ fn manifest() -> content::RawJson<&'static str> {
     content::RawJson(
         r#"
         {
-            "name": "ESP ",
+            "name": "ESP Application",
             "new_install_prompt_erase": true,
             "builds": [
                 {
