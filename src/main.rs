@@ -46,47 +46,121 @@ fn firmware(data: &State<PartsData>) -> Vec<u8> {
 fn index() -> content::RawHtml<&'static str> {
     content::RawHtml(
         "
-    <html>
-    <script
-        type=\"module\"
-        src=\"https://unpkg.com/esp-web-tools@8.0.2/dist/web/install-button.js?module\">
-    </script>
-    <body>
-    
-    <esp-web-install-button
-        manifest=\"/manifest.json\">
-    </esp-web-install-button>
+        <html>
+        <body>
+            <center>
+                <h1>ESP Web Flaher</h1>
 
-    </body>
-    </html>
-    ",
+                <div id=\"main\" style=\"display: none;\">
+
+                    <br>
+                    <script type=\"module\" src=\"https://unpkg.com/esp-web-tools@8.0.2/dist/web/install-button.js?module\">
+                    </script>
+                    <esp-web-install-button id=\"installButton\" manifest=\"manifest.json\"></esp-web-install-button>
+                    <br>
+                    <span><i>NOTE: Make sure to close anything using your devices com port (e.g. Serial monitor)</i></span>
+                </div>
+                <div id=\"notSupported\" style=\"display: none;\">
+                    Your browser does not support the Web Serial API. Try Chrome
+                </div>
+            </center>
+
+            <script>
+                if (navigator.serial) {
+                    document.getElementById(\"notSupported\").style.display = 'none';
+                    document.getElementById(\"main\").style.display = 'block';
+                } else {
+                    document.getElementById(\"notSupported\").style.display = 'block';
+                    document.getElementById(\"main\").style.display = 'none';
+                }
+            </script>
+
+        </body>
+        </html>
+        ",
     )
 }
 
 #[get("/manifest.json")]
-fn manifest(data: &State<PartsData>) -> content::RawJson<String> {
-    content::RawJson(format!(
+fn manifest() -> content::RawJson<&'static str> {
+    content::RawJson(
         r#"
-{{
-    "name": "Something",
-    "version": "1",
-    "home_assistant_domain": "esphome",
-    "funding_url": "https://esphome.io/guides/supporters.html",
-    "new_install_prompt_erase": false,
-    "builds": [
-      {{
-        "chipFamily": "{}",
-        "parts": [
-          {{ "path": "bootloader.bin", "offset": 4096 }},
-          {{ "path": "partitions.bin", "offset": 32768 }},
-          {{ "path": "firmware.bin", "offset": 65536 }}
-        ]
-      }}
-    ]
-  }}
-"#,
-        data.chip
-    ))
+        {
+            "name": "ESP Application",
+            "new_install_prompt_erase": true,
+            "builds": [
+                {
+                "chipFamily": "ESP32",
+                "parts": [
+                    {
+                    "path": "bootloader.bin",
+                    "offset": 4096
+                    },
+                    {
+                    "path": "partitions.bin",
+                    "offset": 32768
+                    },
+                    {
+                    "path": "firmware.bin",
+                    "offset": 65536
+                    }
+                ]
+                },
+                {
+                "chipFamily": "ESP32-C3",
+                "parts": [
+                    {
+                    "path": "bootloader.bin",
+                    "offset": 0
+                    },
+                    {
+                    "path": "partitions.bin",
+                    "offset": 32768
+                    },
+                    {
+                    "path": "firmware.bin",
+                    "offset": 65536
+                    }
+                ]
+                },
+                {
+                "chipFamily": "ESP32-S2",
+                "parts": [
+                    {
+                    "path": "bootloader.bin",
+                    "offset": 4096
+                    },
+                    {
+                    "path": "partitions.bin",
+                    "offset": 32768
+                    },
+                    {
+                    "path": "firmware.bin",
+                    "offset": 65536
+                    }
+                ]
+                },
+                {
+                "chipFamily": "ESP32-S3",
+                "parts": [
+                    {
+                    "path": "bootloader.bin",
+                    "offset": 0
+                    },
+                    {
+                    "path": "partitions.bin",
+                    "offset": 32768
+                    },
+                    {
+                    "path": "firmware.bin",
+                    "offset": 65536
+                    }
+                ]
+                }
+            ]
+        }
+        "#,
+    )
 }
 
 struct PartsData {
