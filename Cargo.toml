@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 rocket = "0.5.0-rc.2"
-espflash = { version = "1.5.2-dev", git = "https://github.com/esp-rs/espflash", branch = "bugfix/chip-name-esptool" }
+espflash = { rev = "55bce336c6718c1c7f019e4da718f97c8cdf1b95", git = "https://github.com/esp-rs/espflash" }
 clap = { version = "3.1.18", features=["env"] }
 opener = "0.5.0"
 anyhow = "1.0.57"
