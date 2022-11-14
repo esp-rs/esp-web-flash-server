@@ -5,7 +5,9 @@ edition = "2021"
 
 [dependencies]
 rocket = "0.5.0-rc.2"
-espflash = { rev = "55bce336c6718c1c7f019e4da718f97c8cdf1b95", git = "https://github.com/esp-rs/espflash" }
-clap = { version = "3.1.18", features=["env"] }
+espflash = "2.0.0-rc.1"
+esp-idf-part = "0.1.1"
+clap = { version = "3.1.18", features=["env", "derive"] }
 opener = "0.5.0"
 anyhow = "1.0.57"
+xmas-elf = "0.8.0"
