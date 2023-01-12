@@ -49,7 +49,7 @@ fn index() -> content::RawHtml<&'static str> {
         <html>
         <body>
             <center>
-                <h1>ESP Web Flaher</h1>
+                <h1>ESP Web Flasher</h1>
 
                 <div id=\"main\" style=\"display: none;\">
 
