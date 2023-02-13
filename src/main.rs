@@ -10,18 +10,18 @@ use rocket::{response::content, State};
 extern crate rocket;
 
 #[derive(Parser, Debug, Clone)]
-#[clap(author, version, about, long_about = None)]
+#[command(author, version, about, long_about = None)]
 struct Args {
     /// chip name
-    #[clap(short, long)]
+    #[arg(short, long)]
     chip: Chip,
 
     /// path to bootloader
-    #[clap(short, long)]
+    #[arg(short, long)]
     bootloader: Option<PathBuf>,
 
     /// path to partition table csv
-    #[clap(short, long)]
+    #[arg(short, long)]
     partition_table: Option<PathBuf>,
 
     elf: PathBuf,
