@@ -4,7 +4,7 @@ Starts a local server serving a web page to flash a given ELF file.
 
 ## Installation
 ```
-cargo install espup
+cargo install web-flash
 ```
 ## Usage
 ```
