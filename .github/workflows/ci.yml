@@ -1,0 +1,70 @@
+---
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/README.md"
+      - "**/release.yml"
+  pull_request:
+    paths-ignore:
+      - "**/README.md"
+      - "**/release.yml"
+
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  cargo-checks:
+    name: CI checks
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        action:
+          - command: build
+            args: --release
+          - command: fmt
+            args: --all -- --check
+          - command: clippy
+            args: --all-targets --all-features --workspace -- -D warnings
+          - command: doc
+            args: --no-deps --document-private-items --all-features --workspace --examples
+          - command: publish
+            args: --dry-run
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/' /etc/apt/sources.list
+          sudo apt-get update
+          sudo apt-get install libudev-dev
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Enable caching
+        uses: Swatinem/rust-cache@v2
+      - name: Cargo command
+        run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
+  msrv:
+    name: MSRV check
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/' /etc/apt/sources.list
+          sudo apt-get update
+          sudo apt-get install musl-tools libudev-dev
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.65.0
+      - name: Enable caching
+        uses: Swatinem/rust-cache@v2
+      - name: Cargo check
+        run: cargo check
