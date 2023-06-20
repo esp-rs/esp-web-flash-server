@@ -2,6 +2,7 @@
 name = "web-flash"
 version = "0.2.1"
 edition = "2021"
+rust-version = "1.65"
 authors = [
     "Björn Quentin <bjoern.quentin@mobile-j.de>",
     "Sergio Gasquez Arcos <sergio.gasquez@gmail.com>",
