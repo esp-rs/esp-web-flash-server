@@ -1,6 +1,6 @@
 [package]
 name = "web-flash"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 description = "A web server to flash Espressif devices given an ELF file."
 rust-version = "1.65"
