@@ -45,6 +45,7 @@ jobs:
       - name: Install dependencies
         if: matrix.job.os == 'ubuntu-20.04'
         run: |
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/' /etc/apt/sources.list
           sudo apt-get update
           sudo apt-get install libudev-dev librust-libudev-sys-dev pkg-config
 

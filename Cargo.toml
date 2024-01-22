@@ -1,11 +1,33 @@
 [package]
 name = "web-flash"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
+description = "A web server to flash Espressif devices given an ELF file."
+rust-version = "1.65"
+authors = [
+    "Björn Quentin <bjoern.quentin@mobile-j.de>",
+    "Sergio Gasquez Arcos <sergio.gasquez@gmail.com>",
+]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/esp-rs/esp-web-flash-server"
+keywords = [
+    "cli",
+    "embedded",
+    "esp",
+]
+categories = [
+    "command-line-utilities",
+    "development-tools",
+    "embedded",
+]
+
 
 [dependencies]
-rocket = "0.5.0-rc.2"
-espflash = { rev = "55bce336c6718c1c7f019e4da718f97c8cdf1b95", git = "https://github.com/esp-rs/espflash" }
-clap = { version = "4.1.4", features = ["env", "derive"] }
-opener = "0.5.2"
-anyhow = "1.0.69"
+rocket = "0.5.0-rc.3"
+espflash = "2.0.0"
+esp-idf-part = "0.4.1"
+clap = { version = "4.3.5", features=["env", "derive"] }
+opener = "0.6.1"
+anyhow = "1.0.71"
+xmas-elf = "0.9.0"
